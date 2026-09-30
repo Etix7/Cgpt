@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cgpt"
+version = "0.1.0"
+description = "A command-line productivity tool powered by Claude (an sgpt-style assistant for your shell)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Proprietary — All Rights Reserved" }
+authors = [{ name = "Étienne Bigant", email = "etienne.bigant@gmail.com" }]
+keywords = ["claude", "anthropic", "cli", "shell", "llm", "assistant", "productivity"]
+classifiers = [
+    "License :: Other/Proprietary License",
+    "Environment :: Console",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "anthropic>=0.40",
+    "typer>=0.12",
+    "rich>=13.7",
+    "prompt_toolkit>=3.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+cgpt = "cgpt.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/etiennebigant/cgpt"
+
+[tool.hatchling.build.targets.wheel]
+packages = ["cgpt"]

@@ -1,0 +1,77 @@
+Licence propriétaire — Tous droits réservés
+Proprietary License — All Rights Reserved
+
+Copyright (c) 2026 Étienne Bigant (« Etix7 »). Tous droits réservés.
+
+--------------------------------------------------------------------------
+VERSION FRANÇAISE
+--------------------------------------------------------------------------
+
+Le présent logiciel « cgpt » ainsi que l'intégralité de son code source, de sa
+documentation et des fichiers qui l'accompagnent (le « Logiciel ») sont la
+propriété exclusive d'Étienne Bigant (le « Titulaire »). Le Logiciel est protégé
+par le droit d'auteur et par les traités internationaux applicables.
+
+Aucun droit n'est concédé par défaut. En particulier, sauf autorisation écrite,
+préalable et expresse du Titulaire, il est INTERDIT à toute personne de :
+
+  1. copier, reproduire ou dupliquer tout ou partie du Logiciel ;
+  2. distribuer, publier, mettre à disposition, revendre, louer ou sous-licencier
+     tout ou partie du Logiciel ;
+  3. modifier, adapter, traduire ou créer des œuvres dérivées du Logiciel ;
+  4. procéder à de l'ingénierie inverse, décompiler ou désassembler le Logiciel,
+     sauf dans la stricte mesure permise par une disposition légale impérative ;
+  5. retirer, masquer ou altérer les mentions de droit d'auteur ou de propriété.
+
+Le fait que le code soit consultable (par exemple parce qu'il est hébergé sur un
+dépôt public) ne vaut en aucun cas concession d'une licence ni autorisation de
+copie ou d'utilisation. La consultation à des fins d'information n'emporte aucun
+droit d'usage.
+
+Toute demande d'autorisation doit être adressée au Titulaire, qui reste libre de
+l'accorder ou de la refuser, en tout ou partie, et de l'assortir de conditions.
+
+ABSENCE DE GARANTIE. Le Logiciel est fourni « en l'état », sans aucune garantie
+d'aucune sorte, expresse ou implicite, notamment de qualité marchande ou
+d'adéquation à un usage particulier. Le Titulaire ne saurait être tenu
+responsable de tout dommage résultant de l'utilisation ou de l'impossibilité
+d'utiliser le Logiciel.
+
+Le Logiciel intègre ou dépend de composants tiers (notamment le SDK « anthropic »
+et d'autres bibliothèques Python), qui demeurent soumis à leurs licences
+respectives ; la présente licence ne s'applique qu'aux éléments originaux du
+Titulaire.
+
+--------------------------------------------------------------------------
+ENGLISH VERSION (courtesy translation; the French version prevails)
+--------------------------------------------------------------------------
+
+This software "cgpt", together with all of its source code, documentation and
+accompanying files (the "Software"), is the exclusive property of Étienne Bigant
+(the "Owner"). The Software is protected by copyright law and applicable
+international treaties.
+
+No rights are granted by default. In particular, unless the Owner gives prior,
+express, written permission, NO person may:
+
+  1. copy, reproduce or duplicate all or part of the Software;
+  2. distribute, publish, make available, resell, rent or sublicense all or part
+     of the Software;
+  3. modify, adapt, translate or create derivative works of the Software;
+  4. reverse engineer, decompile or disassemble the Software, except to the
+     strict extent permitted by mandatory law;
+  5. remove, obscure or alter any copyright or proprietary notice.
+
+The fact that the code can be viewed (for example because it is hosted in a
+public repository) does not grant any license, nor any permission to copy or
+use it. Viewing for information purposes conveys no right of use.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY ARISING FROM THE USE OF OR INABILITY TO USE THE SOFTWARE.
+
+Third-party components (notably the "anthropic" SDK and other Python libraries)
+remain governed by their own licenses; this license covers only the Owner's
+original work.
+
+For permission requests, contact the Owner.
