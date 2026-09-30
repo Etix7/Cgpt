@@ -1,26 +1,46 @@
 # Claude_Gpt
 
-> Command-line tool. The installed command is **`cgpt`**.
+> Open-source Claude-powered **cybersecurity** assistant for the terminal.
+> The installed command is **`cgpt`**. Built for Kali Linux and any security workstation.
 
-A command-line productivity tool powered by **Claude** — a
-[shell_gpt](https://github.com/ther1d/shell_gpt)-style assistant that lives in
-your terminal. Ask questions, generate and run shell commands, produce code, and
-hold persistent conversations, all from the shell.
+**Claude_Gpt** brings Claude to the place cyber professionals actually work — the
+terminal. Ask security questions, generate ready-to-run commands for your favourite
+tools (nmap, ffuf, nuclei, hashcat, sqlmap…), produce tooling scripts, and switch
+between offensive, defensive and analysis mindsets with built-in **security roles**.
+
+For pentesters, red/blue teamers, SOC analysts, CTF players, students and
+researchers — working within authorized engagements, labs or CTFs.
 
 Built on the official [`anthropic`](https://pypi.org/project/anthropic/) SDK.
 
 ## Features
 
-- **Q&A** — `cgpt "how do I flatten a list in Python?"`
-- **Shell commands** — `cgpt -s "find files larger than 100MB"` → generates the
-  command and offers **[E]xecute / [D]escribe / [A]bort**
-- **Code only** — `cgpt -c "fizzbuzz in rust"` → raw code, no prose
-- **Explain a command** — `cgpt -d "tar -xzvf a.tar.gz"`
-- **Reads stdin** — `git diff | cgpt "write a commit message"`
-- **Persistent chats** — `cgpt --chat mychat "..."` remembers context
-- **Interactive REPL** — `cgpt --repl mychat`
-- **Custom roles** — reusable system prompts
+- **Security Q&A** — `cgpt "explain how kerberoasting works and how to detect it"`
+- **Shell commands** — `cgpt -s "nmap full TCP scan with service detection on 10.0.0.5"`
+  → generates the command and offers **[E]xecute / [D]escribe / [A]bort**
+- **Tooling & scripts** — `cgpt -c "python script to brute-force a login form"` → raw code
+- **Explain a command** — `cgpt -d "hashcat -m 22000 hash.hc22000 wordlist.txt"`
+- **Reads stdin** — `nmap -oX - 10.0.0.5 | cgpt "summarize the attack surface"`
+- **Security roles** — `--role recon | web | exploit | blueteam | forensics | osint | ctf | report`
+- **Persistent chats** & **interactive REPL** — keep engagement context across prompts
+- **Custom roles** — save your own reusable system prompts
 - Streaming output with Markdown + syntax highlighting
+
+### Built-in security roles
+
+| Role | Focus |
+|------|-------|
+| `default` | General cybersecurity assistant |
+| `shell` (`-s`) | Generate a single command (security tooling aware) |
+| `code` (`-c`) | Generate tooling / PoC / automation code |
+| `recon` | Reconnaissance, enumeration, attack-surface mapping |
+| `web` | Web app testing (OWASP, Burp, ffuf, sqlmap, nuclei) |
+| `exploit` | Vulnerability / CVE / PoC analysis (with detection & fix) |
+| `blueteam` | Detection engineering, hunting, hardening (Sigma/SPL/KQL/YARA) |
+| `forensics` | DFIR — memory/disk/network/log analysis (Volatility, Sleuth Kit) |
+| `osint` | Open-source intelligence & footprinting |
+| `ctf` | CTF solving across pwn/rev/web/crypto/forensics |
+| `report` | Turn findings into a professional pentest writeup |
 
 ## Install
 
@@ -39,28 +59,34 @@ export ANTHROPIC_API_KEY=sk-ant-...
 ## Usage
 
 ```bash
-# Simple question
-cgpt "what is the difference between TCP and UDP?"
+# Security question
+cgpt "how does an NTLM relay attack work, and how do I defend against it?"
 
-# Generate a shell command and choose what to do with it
-cgpt -s "recursively delete all .pyc files"
+# Generate a command and choose what to do with it (Execute / Describe / Abort)
+cgpt -s "nmap top 1000 ports with service and OS detection on 10.10.10.0/24"
 
-# Pipe context in
-cat error.log | cgpt "what is causing this error?"
+# Pipe recon output back in for analysis
+nmap -sV -oX - 10.10.10.5 | cgpt "summarize the attack surface and likely entry points"
+sudo tcpdump -c 200 -w - | cgpt "any suspicious traffic here?"
 
-# Code generation
-cgpt -c "python function to debounce calls" > debounce.py
+# Generate tooling / a PoC
+cgpt -c "python script that fuzzes a URL parameter for SQLi and reports anomalies" > sqli_fuzz.py
 
-# Persistent conversation
-cgpt --chat refactor "here is my module: ..."
-cgpt --chat refactor "now add type hints"
+# Security roles
+cgpt --role recon "enumeration plan for an unauthenticated web host at 10.10.10.5"
+cgpt --role web "test this login form for auth bypass: https://target.lab/login"
+cgpt --role blueteam "write a Sigma rule for suspicious PowerShell encoded commands"
+cgpt --role forensics "triage steps for a compromised Linux box, memory first"
+cgpt --role osint "footprint the domain example.com from public sources only"
 
-# Interactive REPL (commands: exit | /shell <cmd> | /clear)
-cgpt --repl refactor
+# Persistent engagement context + interactive REPL
+cgpt --chat htb-boxA "target: 10.10.10.5, web on 80, ssh on 22. plan the assessment"
+cgpt --chat htb-boxA "found a possible LFI on /view?file= — how do I confirm it?"
+cgpt --repl htb-boxA          # commands: exit | /shell <cmd> | /clear
 
-# Roles
-cgpt --create-role sql        # paste a system prompt, end with Ctrl-D / Ctrl-Z
-cgpt --role sql "top 5 customers by revenue"
+# Custom roles
+cgpt --create-role ad         # paste a system prompt, end with Ctrl-D / Ctrl-Z
+cgpt --role ad "BloodHound path from a low-priv user to Domain Admin — what to run?"
 cgpt --list-roles
 ```
 
@@ -87,19 +113,23 @@ cgpt -m claude-sonnet-5-5 "quick question"
 cgpt --no-md -c "one-liner"
 ```
 
-## Safety note
+## Responsible use
 
-Generated shell commands are **not** run without your confirmation unless you set
-`SHELL_INTERACTION=false`. Always read a command before executing it.
+Claude_Gpt is a tool for **authorized** security work only — engagements you have
+written permission for, your own lab, or sanctioned CTFs. Do not use it against
+systems you don't own or aren't allowed to test. You are responsible for what you
+run: generated shell commands are **not** executed without your confirmation unless
+you set `SHELL_INTERACTION=false`, so always read a command before running it.
 
-## Licence
+## License
 
-**Propriétaire — Tous droits réservés.** Copyright © 2026 Étienne Bigant (Etix7).
+**GNU General Public License v3.0 or later (GPLv3+).** Copyright © 2026 Étienne Bigant (Etix7).
 
-Ce logiciel n'est **pas** open source. Toute copie, distribution, modification ou
-réutilisation de tout ou partie du code est interdite sans autorisation écrite
-préalable de l'auteur. Le simple fait que le dépôt soit consultable ne concède
-aucun droit d'usage. Voir le fichier [LICENSE](LICENSE) pour les termes complets.
+Claude_Gpt is free/open-source software: you may use, study, share and modify it.
+If you distribute it or a modified version, that version must also be released under
+the GPL and keep the source available — so it stays open for the whole community and
+can't be repackaged as closed-source. See the [LICENSE](LICENSE) file for the full
+terms, or <https://www.gnu.org/licenses/gpl-3.0.html>.
 
-> Les dépendances tierces (SDK `anthropic`, `typer`, `rich`, `prompt_toolkit`)
-> restent soumises à leurs propres licences.
+> Third-party dependencies (`anthropic`, `typer`, `rich`, `prompt_toolkit`) remain
+> under their own licenses.

@@ -23,7 +23,11 @@ app = typer.Typer(
     add_completion=False,
     no_args_is_help=False,
     context_settings={"help_option_names": ["-h", "--help"]},
-    help="cgpt — ask Claude from your terminal. Generate shell commands, code, or answers.",
+    help=(
+        "Claude_Gpt (cgpt) — a Claude-powered cybersecurity assistant for your terminal. "
+        "Generate shell commands, code and answers, and switch context with security "
+        "roles: --role recon | web | exploit | blueteam | forensics | osint | ctf | report."
+    ),
 )
 
 
@@ -137,10 +141,10 @@ def main(
         raise typer.Exit()
     if list_roles:
         from .config import ROLES_DIR
+        from .roles import BUILTIN_NAMES
 
-        builtins = ["default", "shell", "code", "describe_shell"]
         custom = [p.stem for p in ROLES_DIR.glob("*.json")] if ROLES_DIR.exists() else []
-        for name in builtins:
+        for name in BUILTIN_NAMES:
             console.print(f"{name} [dim](built-in)[/dim]")
         for name in sorted(custom):
             console.print(name)
