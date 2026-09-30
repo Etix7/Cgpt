@@ -1,14 +1,14 @@
 # Packaging & release (maintainer notes)
 
-`claude-gpt` ships as a Debian package built with **dh-virtualenv**: all Python
-dependencies (including the Anthropic SDK) are bundled into a self-contained
-virtualenv at `/opt/venvs/claude-gpt`, and `/usr/bin/claude-gpt` is symlinked to it. This is
-what lets `apt install claude-gpt` work even though `anthropic` is not in the Debian
-repositories.
+`claude-gpt` ships as a **native Debian Python package** built with
+`dh-python`/`pybuild`. It is a pure-Python (`Architecture: all`) package whose
+runtime dependencies come from the distribution as `python3-*` packages
+(`python3-anthropic`, `python3-typer`, `python3-rich`, `python3-prompt-toolkit`),
+so nothing is vendored and `apt` resolves everything at install time.
 
 A GitHub Actions workflow (`.github/workflows/release.yml`) builds the `.deb`
-inside a `kalilinux/kali-rolling` container and publishes a signed **APT
-repository to GitHub Pages** on every `v*` tag.
+on the Ubuntu runner and publishes a signed **APT repository to GitHub Pages**
+on every `v*` tag.
 
 ## One-time setup
 
@@ -55,10 +55,9 @@ for each release.
 ## Build locally instead
 
 ```bash
-# On a Kali/Debian host:
+# On a Debian / Kali / Ubuntu host:
 ./packaging/build-deb.sh
-# Or, from anywhere with Docker:
-USE_DOCKER=1 ./packaging/build-deb.sh
+# -> ../claude-gpt_0.1.0_all.deb
 ```
 
 ## Layout published to Pages
@@ -66,8 +65,8 @@ USE_DOCKER=1 ./packaging/build-deb.sh
 ```
 /                     -> https://etix7.github.io/Cgpt/
 ├── KEY.gpg           (public signing key, armored)
-├── pool/main/c/claude-gpt/claude-gpt_<ver>_amd64.deb
+├── pool/main/c/claude-gpt/claude-gpt_<ver>_all.deb
 └── dists/stable/
     ├── Release, Release.gpg, InRelease
-    └── main/binary-amd64/Packages(.gz)
+    └── main/binary-{amd64,arm64}/Packages(.gz)
 ```

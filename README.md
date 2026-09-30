@@ -55,8 +55,9 @@ sudo apt update
 sudo apt install claude-gpt
 ```
 
-Dependencies (including the Anthropic SDK) are bundled inside the package, so no
-`pip install` is required. To update later: `sudo apt update && sudo apt install --only-upgrade claude-gpt`.
+Dependencies (the Anthropic SDK and friends) are pulled in automatically from the
+distribution's `python3-*` packages, so no `pip install` is required. To update
+later: `sudo apt update && sudo apt install --only-upgrade claude-gpt`.
 
 > If the repository is published **unsigned** (no GPG key configured yet), replace
 > the two lines above with a single trusted-source entry:

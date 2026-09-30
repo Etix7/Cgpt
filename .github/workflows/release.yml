@@ -22,42 +22,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Build inside a Kali container so the bundled virtualenv's Python and any
-      # compiled wheels (pydantic-core, etc.) match what runs on Kali.
-      - name: Build the .deb inside a Kali container
+      # Native Debian package: pure-Python, deps come from python3-* at install
+      # time, so it builds fine on the Ubuntu runner and installs on Kali.
+      - name: Install build dependencies
         run: |
           set -euxo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            debhelper dh-python python3-all pybuild-plugin-pyproject \
+            python3-hatchling dpkg-dev build-essential apt-utils
+
+      - name: Build the .deb
+        run: |
+          set -euxo pipefail
+          dpkg-buildpackage -us -uc -b
           mkdir -p dist
-          docker run --rm -v "$PWD":/w -w /w kalilinux/kali-rolling bash -c '
-            set -eux
-            export DEBIAN_FRONTEND=noninteractive
-            apt-get update
-            apt-get install -y --no-install-recommends \
-              debhelper dh-virtualenv python3 python3-dev python3-venv python3-pip \
-              build-essential dpkg-dev libffi-dev ca-certificates
-            dpkg-buildpackage -us -uc -b
-            cp ../claude-gpt_*.deb /w/dist/
-          '
+          cp ../claude-gpt_*.deb dist/
           ls -l dist
 
       - name: Assemble the APT repository
         run: |
           set -euxo pipefail
-          sudo apt-get update
-          sudo apt-get install -y apt-utils
           mkdir -p public/pool/main/c/claude-gpt
-          mkdir -p public/dists/stable/main/binary-amd64
           cp dist/claude-gpt_*.deb public/pool/main/c/claude-gpt/
           touch public/.nojekyll
           cd public
-          apt-ftparchive packages pool > dists/stable/main/binary-amd64/Packages
-          gzip -kf dists/stable/main/binary-amd64/Packages
+          # arch:all package — expose it under each supported architecture.
+          for arch in amd64 arm64; do
+            mkdir -p "dists/stable/main/binary-$arch"
+            apt-ftparchive --arch "$arch" packages pool > "dists/stable/main/binary-$arch/Packages"
+            gzip -kf "dists/stable/main/binary-$arch/Packages"
+          done
           apt-ftparchive \
             -o APT::FTPArchive::Release::Origin="Claude_Gpt" \
             -o APT::FTPArchive::Release::Label="Claude_Gpt" \
             -o APT::FTPArchive::Release::Suite="stable" \
             -o APT::FTPArchive::Release::Codename="stable" \
-            -o APT::FTPArchive::Release::Architectures="amd64" \
+            -o APT::FTPArchive::Release::Architectures="amd64 arm64" \
             -o APT::FTPArchive::Release::Components="main" \
             -o APT::FTPArchive::Release::Description="Claude_Gpt APT repository" \
             release dists/stable > dists/stable/Release

@@ -1,18 +1,9 @@
 #!/usr/bin/make -f
-# Build claude-gpt as a self-contained virtualenv package via dh-virtualenv.
-# The Python deps (anthropic, typer, rich, prompt_toolkit) are bundled, so the
-# .deb installs on Kali without touching the system Python.
+# Native Debian Python package via dh-python/pybuild.
+# Runtime deps (anthropic, typer, rich, prompt_toolkit) come from the distro
+# as python3-* packages (see debian/control), so nothing is vendored.
 
-export DH_VIRTUALENV_INSTALL_ROOT=/opt/venvs
+export PYBUILD_NAME=cgpt
 
 %:
-	dh $@ --with python-virtualenv
-
-override_dh_virtualenv:
-	dh_virtualenv \
-	  --builtin-venv \
-	  --python /usr/bin/python3 \
-	  --preinstall pip \
-	  --preinstall wheel \
-	  --preinstall setuptools \
-	  --preinstall hatchling
+	dh $@ --with python3 --buildsystem=pybuild
