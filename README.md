@@ -44,16 +44,40 @@ Built on the official [`anthropic`](https://pypi.org/project/anthropic/) SDK.
 
 ## Install
 
+### On Kali / Debian / Ubuntu — via `apt` (recommended)
+
+Add the signing key and the repository, then install:
+
 ```bash
-cd cgpt
+curl -fsSL https://etix7.github.io/Cgpt/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cgpt-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/cgpt-archive-keyring.gpg] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/cgpt.list
+sudo apt update
+sudo apt install cgpt
+```
+
+Dependencies (including the Anthropic SDK) are bundled inside the package, so no
+`pip install` is required. To update later: `sudo apt update && sudo apt install --only-upgrade cgpt`.
+
+> If the repository is published **unsigned** (no GPG key configured yet), replace
+> the two lines above with a single trusted-source entry:
+> ```bash
+> echo "deb [trusted=yes] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/cgpt.list
+> ```
+
+### From source (development)
+
+```bash
+git clone https://github.com/Etix7/Cgpt.git && cd Cgpt
 pip install -e .
 ```
 
-Set your API key (the SDK reads it from the environment):
+### API key
+
+`cgpt` needs an Anthropic API key, read from the environment:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-# Windows PowerShell:  $env:ANTHROPIC_API_KEY = "sk-ant-..."
+# add it to ~/.bashrc or ~/.zshrc to persist
 ```
 
 ## Usage
