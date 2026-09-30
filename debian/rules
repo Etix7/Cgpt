@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Build cgpt as a self-contained virtualenv package via dh-virtualenv.
+# Build claude-gpt as a self-contained virtualenv package via dh-virtualenv.
 # The Python deps (anthropic, typer, rich, prompt_toolkit) are bundled, so the
 # .deb installs on Kali without touching the system Python.
 

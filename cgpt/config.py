@@ -1,9 +1,9 @@
-"""Configuration loading for cgpt.
+"""Configuration loading for Claude_Gpt.
 
 Settings are resolved with this precedence (highest first):
     1. Command-line flags (handled in cli.py)
-    2. Environment variables (CGPT_* and ANTHROPIC_API_KEY)
-    3. The config file ~/.config/cgpt/.cgptrc  (INI-less KEY=VALUE format)
+    2. Environment variables (CLAUDE_GPT_* and ANTHROPIC_API_KEY)
+    3. The config file ~/.config/claude-gpt/.claude-gptrc  (INI-less KEY=VALUE format)
     4. Built-in defaults below
 """
 
@@ -14,8 +14,8 @@ from pathlib import Path
 
 # --- Paths -----------------------------------------------------------------
 
-CONFIG_DIR = Path(os.environ.get("CGPT_CONFIG_DIR", Path.home() / ".config" / "cgpt"))
-CONFIG_PATH = CONFIG_DIR / ".cgptrc"
+CONFIG_DIR = Path(os.environ.get("CLAUDE_GPT_CONFIG_DIR", Path.home() / ".config" / "claude-gpt"))
+CONFIG_PATH = CONFIG_DIR / ".claude-gptrc"
 ROLES_DIR = CONFIG_DIR / "roles"
 CHAT_CACHE_DIR = CONFIG_DIR / "chats"
 
@@ -54,12 +54,12 @@ def _read_config_file() -> dict[str, str]:
 
 
 def ensure_config() -> None:
-    """Create the config dir and a default .cgptrc on first run."""
+    """Create the config dir and a default .claude-gptrc on first run."""
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
     ROLES_DIR.mkdir(parents=True, exist_ok=True)
     CHAT_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     if not CONFIG_PATH.exists():
-        lines = ["# cgpt configuration — edit values as you like\n"]
+        lines = ["# claude-gpt configuration — edit values as you like\n"]
         lines += [f"{k}={v}" for k, v in DEFAULTS.items()]
         CONFIG_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -71,7 +71,7 @@ class Config:
         self._file = _read_config_file()
 
     def get(self, key: str) -> str:
-        env = os.environ.get(f"CGPT_{key}")
+        env = os.environ.get(f"CLAUDE_GPT_{key}")
         if env is not None:
             return env
         if key in self._file:

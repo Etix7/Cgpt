@@ -1,7 +1,7 @@
-cgpt (0.1.0) unstable; urgency=medium
+claude-gpt (0.1.0) unstable; urgency=medium
 
   * Initial release: Claude_Gpt, a Claude-powered cybersecurity assistant for
-    the terminal (command: cgpt). Ships shell/code/answer generation and the
+    the terminal (command: claude-gpt). Ships shell/code/answer generation and the
     recon, web, exploit, blueteam, forensics, osint, ctf and report roles.
   * Packaged with dh-virtualenv; Python dependencies (including the Anthropic
     SDK) are bundled in a self-contained virtualenv.

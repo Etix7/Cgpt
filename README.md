@@ -1,7 +1,7 @@
 # Claude_Gpt
 
 > Open-source Claude-powered **cybersecurity** assistant for the terminal.
-> The installed command is **`cgpt`**. Built for Kali Linux and any security workstation.
+> The installed command is **`claude-gpt`**. Built for Kali Linux and any security workstation.
 
 **Claude_Gpt** brings Claude to the place cyber professionals actually work — the
 terminal. Ask security questions, generate ready-to-run commands for your favourite
@@ -15,12 +15,12 @@ Built on the official [`anthropic`](https://pypi.org/project/anthropic/) SDK.
 
 ## Features
 
-- **Security Q&A** — `cgpt "explain how kerberoasting works and how to detect it"`
-- **Shell commands** — `cgpt -s "nmap full TCP scan with service detection on 10.0.0.5"`
+- **Security Q&A** — `claude-gpt "explain how kerberoasting works and how to detect it"`
+- **Shell commands** — `claude-gpt -s "nmap full TCP scan with service detection on 10.0.0.5"`
   → generates the command and offers **[E]xecute / [D]escribe / [A]bort**
-- **Tooling & scripts** — `cgpt -c "python script to brute-force a login form"` → raw code
-- **Explain a command** — `cgpt -d "hashcat -m 22000 hash.hc22000 wordlist.txt"`
-- **Reads stdin** — `nmap -oX - 10.0.0.5 | cgpt "summarize the attack surface"`
+- **Tooling & scripts** — `claude-gpt -c "python script to brute-force a login form"` → raw code
+- **Explain a command** — `claude-gpt -d "hashcat -m 22000 hash.hc22000 wordlist.txt"`
+- **Reads stdin** — `nmap -oX - 10.0.0.5 | claude-gpt "summarize the attack surface"`
 - **Security roles** — `--role recon | web | exploit | blueteam | forensics | osint | ctf | report`
 - **Persistent chats** & **interactive REPL** — keep engagement context across prompts
 - **Custom roles** — save your own reusable system prompts
@@ -49,19 +49,19 @@ Built on the official [`anthropic`](https://pypi.org/project/anthropic/) SDK.
 Add the signing key and the repository, then install:
 
 ```bash
-curl -fsSL https://etix7.github.io/Cgpt/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cgpt-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/cgpt-archive-keyring.gpg] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/cgpt.list
+curl -fsSL https://etix7.github.io/Cgpt/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/claude-gpt-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/claude-gpt-archive-keyring.gpg] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/claude-gpt.list
 sudo apt update
-sudo apt install cgpt
+sudo apt install claude-gpt
 ```
 
 Dependencies (including the Anthropic SDK) are bundled inside the package, so no
-`pip install` is required. To update later: `sudo apt update && sudo apt install --only-upgrade cgpt`.
+`pip install` is required. To update later: `sudo apt update && sudo apt install --only-upgrade claude-gpt`.
 
 > If the repository is published **unsigned** (no GPG key configured yet), replace
 > the two lines above with a single trusted-source entry:
 > ```bash
-> echo "deb [trusted=yes] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/cgpt.list
+> echo "deb [trusted=yes] https://etix7.github.io/Cgpt stable main" | sudo tee /etc/apt/sources.list.d/claude-gpt.list
 > ```
 
 ### From source (development)
@@ -73,7 +73,7 @@ pip install -e .
 
 ### API key
 
-`cgpt` needs an Anthropic API key, read from the environment:
+`claude-gpt` needs an Anthropic API key, read from the environment:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
@@ -84,40 +84,40 @@ export ANTHROPIC_API_KEY=sk-ant-...
 
 ```bash
 # Security question
-cgpt "how does an NTLM relay attack work, and how do I defend against it?"
+claude-gpt "how does an NTLM relay attack work, and how do I defend against it?"
 
 # Generate a command and choose what to do with it (Execute / Describe / Abort)
-cgpt -s "nmap top 1000 ports with service and OS detection on 10.10.10.0/24"
+claude-gpt -s "nmap top 1000 ports with service and OS detection on 10.10.10.0/24"
 
 # Pipe recon output back in for analysis
-nmap -sV -oX - 10.10.10.5 | cgpt "summarize the attack surface and likely entry points"
-sudo tcpdump -c 200 -w - | cgpt "any suspicious traffic here?"
+nmap -sV -oX - 10.10.10.5 | claude-gpt "summarize the attack surface and likely entry points"
+sudo tcpdump -c 200 -w - | claude-gpt "any suspicious traffic here?"
 
 # Generate tooling / a PoC
-cgpt -c "python script that fuzzes a URL parameter for SQLi and reports anomalies" > sqli_fuzz.py
+claude-gpt -c "python script that fuzzes a URL parameter for SQLi and reports anomalies" > sqli_fuzz.py
 
 # Security roles
-cgpt --role recon "enumeration plan for an unauthenticated web host at 10.10.10.5"
-cgpt --role web "test this login form for auth bypass: https://target.lab/login"
-cgpt --role blueteam "write a Sigma rule for suspicious PowerShell encoded commands"
-cgpt --role forensics "triage steps for a compromised Linux box, memory first"
-cgpt --role osint "footprint the domain example.com from public sources only"
+claude-gpt --role recon "enumeration plan for an unauthenticated web host at 10.10.10.5"
+claude-gpt --role web "test this login form for auth bypass: https://target.lab/login"
+claude-gpt --role blueteam "write a Sigma rule for suspicious PowerShell encoded commands"
+claude-gpt --role forensics "triage steps for a compromised Linux box, memory first"
+claude-gpt --role osint "footprint the domain example.com from public sources only"
 
 # Persistent engagement context + interactive REPL
-cgpt --chat htb-boxA "target: 10.10.10.5, web on 80, ssh on 22. plan the assessment"
-cgpt --chat htb-boxA "found a possible LFI on /view?file= — how do I confirm it?"
-cgpt --repl htb-boxA          # commands: exit | /shell <cmd> | /clear
+claude-gpt --chat htb-boxA "target: 10.10.10.5, web on 80, ssh on 22. plan the assessment"
+claude-gpt --chat htb-boxA "found a possible LFI on /view?file= — how do I confirm it?"
+claude-gpt --repl htb-boxA          # commands: exit | /shell <cmd> | /clear
 
 # Custom roles
-cgpt --create-role ad         # paste a system prompt, end with Ctrl-D / Ctrl-Z
-cgpt --role ad "BloodHound path from a low-priv user to Domain Admin — what to run?"
-cgpt --list-roles
+claude-gpt --create-role ad         # paste a system prompt, end with Ctrl-D / Ctrl-Z
+claude-gpt --role ad "BloodHound path from a low-priv user to Domain Admin — what to run?"
+claude-gpt --list-roles
 ```
 
 ## Configuration
 
-On first run, `~/.config/cgpt/.cgptrc` is created. Every key can also be set via
-a `CGPT_<KEY>` environment variable, which takes precedence.
+On first run, `~/.config/claude-gpt/.claude-gptrc` is created. Every key can also be set via
+a `CLAUDE_GPT_<KEY>` environment variable, which takes precedence.
 
 | Key | Default | Meaning |
 |-----|---------|---------|
@@ -133,8 +133,8 @@ a `CGPT_<KEY>` environment variable, which takes precedence.
 Override per-invocation:
 
 ```bash
-cgpt -m claude-sonnet-5-5 "quick question"
-cgpt --no-md -c "one-liner"
+claude-gpt -m claude-sonnet-5-5 "quick question"
+claude-gpt --no-md -c "one-liner"
 ```
 
 ## Responsible use

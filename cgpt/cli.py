@@ -1,4 +1,4 @@
-"""cgpt command-line interface — an sgpt-style assistant powered by Claude."""
+"""claude-gpt command-line interface — an sgpt-style cybersecurity assistant powered by Claude."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ app = typer.Typer(
     no_args_is_help=False,
     context_settings={"help_option_names": ["-h", "--help"]},
     help=(
-        "Claude_Gpt (cgpt) — a Claude-powered cybersecurity assistant for your terminal. "
+        "Claude_Gpt (command: claude-gpt) — a Claude-powered cybersecurity assistant for your terminal. "
         "Generate shell commands, code and answers, and switch context with security "
         "roles: --role recon | web | exploit | blueteam | forensics | osint | ctf | report."
     ),
@@ -78,7 +78,7 @@ def _repl(chat_id: str, role: Role, model: Optional[str], max_tokens: Optional[i
 
     handler = Handler(role, model=model, max_tokens=max_tokens, chat_id=chat_id, markdown=md)
     session = ChatSession(chat_id)
-    console.print(Rule(f"cgpt REPL · chat '{chat_id}' · role '{role.name}'"))
+    console.print(Rule(f"claude-gpt REPL · chat '{chat_id}' · role '{role.name}'"))
     console.print("[dim]Type your message. Commands: exit | quit | /shell <cmd> | /clear[/dim]")
     if session.exists():
         console.print(f"[dim]Resuming — {len(session.load()) // 2} previous exchange(s).[/dim]")
@@ -126,7 +126,7 @@ def main(
     ensure_config()
 
     if version:
-        console.print(f"cgpt {__version__}")
+        console.print(f"claude-gpt {__version__}")
         raise typer.Exit()
 
     # --- Role management -------------------------------------------------

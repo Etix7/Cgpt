@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Build the cgpt .deb locally on a Debian/Kali host.
+# Build the claude-gpt .deb locally on a Debian/Kali host.
 #
 # Usage:
 #   ./packaging/build-deb.sh            # build natively (must be on Kali/Debian)
 #   USE_DOCKER=1 ./packaging/build-deb.sh   # build inside a kali-rolling container
 #
 # The resulting package lands in ../  (one level above the source tree), e.g.
-#   ../cgpt_0.1.0_amd64.deb
-# Install it with:  sudo apt install ../cgpt_0.1.0_amd64.deb
+#   ../claude-gpt_0.1.0_amd64.deb
+# Install it with:  sudo apt install ../claude-gpt_0.1.0_amd64.deb
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -21,7 +21,7 @@ build_native() {
     build-essential dpkg-dev libffi-dev ca-certificates
   dpkg-buildpackage -us -uc -b
   echo "Built packages:"
-  ls -1 ../cgpt_*.deb
+  ls -1 ../claude-gpt_*.deb
 }
 
 build_docker() {
@@ -34,10 +34,10 @@ build_docker() {
       debhelper dh-virtualenv python3 python3-dev python3-venv python3-pip \
       build-essential dpkg-dev libffi-dev ca-certificates
     dpkg-buildpackage -us -uc -b
-    cp ../cgpt_*.deb /w/dist/
+    cp ../claude-gpt_*.deb /w/dist/
   '
   echo "Built packages:"
-  ls -1 dist/cgpt_*.deb
+  ls -1 dist/claude-gpt_*.deb
 }
 
 if [ "${USE_DOCKER:-0}" = "1" ]; then

@@ -1,4 +1,4 @@
-"""Thin wrapper over the Anthropic SDK for cgpt.
+"""Thin wrapper over the Anthropic SDK for Claude_Gpt.
 
 Uses streaming so long outputs never hit HTTP timeouts and so the REPL/answer
 can render tokens as they arrive.

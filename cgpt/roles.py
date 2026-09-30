@@ -68,7 +68,7 @@ def _detect_shell() -> str:
 
 # --- Built-in role prompts -------------------------------------------------
 
-DEFAULT_ROLE = f"""You are Claude_Gpt (command: cgpt), a cybersecurity assistant that
+DEFAULT_ROLE = f"""You are Claude_Gpt (command: claude-gpt), a cybersecurity assistant that
 runs in the terminal, typically on a security distribution such as Kali Linux.
 You help penetration testers, red and blue teamers, SOC analysts, CTF players,
 students and researchers with reconnaissance, scanning and enumeration,
@@ -202,7 +202,7 @@ class Role:
         if path.exists():
             data = json.loads(path.read_text(encoding="utf-8"))
             return cls(data["name"], data["prompt"])
-        raise KeyError(f"Role '{name}' not found. Create it with: cgpt --create-role {name}")
+        raise KeyError(f"Role '{name}' not found. Create it with: claude-gpt --create-role {name}")
 
     def save(self) -> None:
         ROLES_DIR.mkdir(parents=True, exist_ok=True)

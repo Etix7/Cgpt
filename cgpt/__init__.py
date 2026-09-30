@@ -1,4 +1,4 @@
-"""Claude_Gpt — a Claude-powered cybersecurity assistant for the terminal (command: cgpt).
+"""Claude_Gpt — a Claude-powered cybersecurity assistant for the terminal (command: claude-gpt).
 
 Copyright (C) 2026 Étienne Bigant (Etix7).
 

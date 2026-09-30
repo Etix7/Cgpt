@@ -1,9 +1,9 @@
 # Packaging & release (maintainer notes)
 
-`cgpt` ships as a Debian package built with **dh-virtualenv**: all Python
+`claude-gpt` ships as a Debian package built with **dh-virtualenv**: all Python
 dependencies (including the Anthropic SDK) are bundled into a self-contained
-virtualenv at `/opt/venvs/cgpt`, and `/usr/bin/cgpt` is symlinked to it. This is
-what lets `apt install cgpt` work even though `anthropic` is not in the Debian
+virtualenv at `/opt/venvs/claude-gpt`, and `/usr/bin/claude-gpt` is symlinked to it. This is
+what lets `apt install claude-gpt` work even though `anthropic` is not in the Debian
 repositories.
 
 A GitHub Actions workflow (`.github/workflows/release.yml`) builds the `.deb`
@@ -32,12 +32,12 @@ Expire-Date: 0
 EOF
 
 # Export the PRIVATE key (this is the CI secret — keep it safe):
-gpg --armor --export-secret-keys etienne.bigant@gmail.com > cgpt-apt-private.asc
+gpg --armor --export-secret-keys etienne.bigant@gmail.com > claude-gpt-apt-private.asc
 ```
 
 Add it to the repo secrets: **Settings → Secrets and variables → Actions → New
 repository secret**:
-- `GPG_PRIVATE_KEY` = the full contents of `cgpt-apt-private.asc`
+- `GPG_PRIVATE_KEY` = the full contents of `claude-gpt-apt-private.asc`
 - `GPG_PASSPHRASE` = only if you set a passphrase (the example above uses none)
 
 If you skip this, the repo is still published but **unsigned**; users then need
@@ -66,7 +66,7 @@ USE_DOCKER=1 ./packaging/build-deb.sh
 ```
 /                     -> https://etix7.github.io/Cgpt/
 ├── KEY.gpg           (public signing key, armored)
-├── pool/main/c/cgpt/cgpt_<ver>_amd64.deb
+├── pool/main/c/claude-gpt/claude-gpt_<ver>_amd64.deb
 └── dists/stable/
     ├── Release, Release.gpg, InRelease
     └── main/binary-amd64/Packages(.gz)

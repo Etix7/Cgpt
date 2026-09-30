@@ -1,4 +1,4 @@
-Source: cgpt
+Source: claude-gpt
 Section: utils
 Priority: optional
 Maintainer: Étienne Bigant <etienne.bigant@gmail.com>
@@ -14,11 +14,11 @@ Standards-Version: 4.6.2
 Homepage: https://github.com/Etix7/Cgpt
 Rules-Requires-Root: no
 
-Package: cgpt
+Package: claude-gpt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, python3
 Description: Claude-powered cybersecurity assistant for the terminal
- Claude_Gpt (command: cgpt) is an open-source, Claude-powered assistant for
+ Claude_Gpt (command: claude-gpt) is an open-source, Claude-powered assistant for
  cybersecurity work in the terminal. It generates ready-to-run shell commands
  and tooling, answers security questions, and switches between offensive,
  defensive and analysis roles (recon, web, exploit, blueteam, forensics,
@@ -26,4 +26,4 @@ Description: Claude-powered cybersecurity assistant for the terminal
  .
  Built for Kali Linux and other security workstations. The Python
  dependencies, including the Anthropic SDK, are bundled in a self-contained
- virtualenv under /opt/venvs/cgpt, so no system-wide pip install is needed.
+ virtualenv under /opt/venvs/claude-gpt, so no system-wide pip install is needed.

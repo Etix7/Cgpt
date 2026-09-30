@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "Claude_Gpt"
 version = "0.1.0"
-description = "Claude_Gpt — a command-line productivity tool powered by Claude (an sgpt-style assistant for your shell). Installed command: cgpt."
+description = "Claude_Gpt — a Claude-powered cybersecurity assistant for the terminal (an sgpt-style tool for security work). Installed command: claude-gpt."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "GPL-3.0-or-later" }
@@ -31,7 +31,7 @@ dependencies = [
 dev = ["pytest>=8.0", "ruff>=0.5"]
 
 [project.scripts]
-cgpt = "cgpt.cli:app"
+claude-gpt = "cgpt.cli:app"
 
 [project.urls]
 Homepage = "https://github.com/Etix7/Cgpt"
