@@ -36,5 +36,5 @@ claude-gpt = "cgpt.cli:app"
 [project.urls]
 Homepage = "https://github.com/Etix7/Cgpt"
 
-[tool.hatchling.build.targets.wheel]
+[tool.hatch.build.targets.wheel]
 packages = ["cgpt"]
