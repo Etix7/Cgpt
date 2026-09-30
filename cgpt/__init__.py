@@ -1,4 +1,4 @@
-"""cgpt — a command-line productivity tool powered by Claude.
+"""Claude_Gpt — a command-line productivity tool powered by Claude (command: cgpt).
 
 Copyright (c) 2026 Étienne Bigant (Etix7). All rights reserved.
 Proprietary software — see the LICENSE file. No copying, distribution or

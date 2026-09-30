@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cgpt"
+name = "Claude_Gpt"
 version = "0.1.0"
-description = "A command-line productivity tool powered by Claude (an sgpt-style assistant for your shell)."
+description = "Claude_Gpt — a command-line productivity tool powered by Claude (an sgpt-style assistant for your shell). Installed command: cgpt."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "Proprietary — All Rights Reserved" }
@@ -32,7 +32,7 @@ dev = ["pytest>=8.0", "ruff>=0.5"]
 cgpt = "cgpt.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/etiennebigant/cgpt"
+Homepage = "https://github.com/Etix7/Cgpt"
 
 [tool.hatchling.build.targets.wheel]
 packages = ["cgpt"]

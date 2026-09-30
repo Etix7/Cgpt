@@ -1,4 +1,6 @@
-# cgpt
+# Claude_Gpt
+
+> Command-line tool. The installed command is **`cgpt`**.
 
 A command-line productivity tool powered by **Claude** — a
 [shell_gpt](https://github.com/ther1d/shell_gpt)-style assistant that lives in
